@@ -4,7 +4,13 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => ['feblend'].includes(tag),
+      }
+    }
+  })],
   server: {
     host: "0.0.0.0",
     port: 8080,

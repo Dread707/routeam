@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import Background from "@/components/Background.vue";
+import CardList from "@/components/CardList.vue";
 </script>
 
 <template>
-  <div>
-    <Background />
+  <div class="container">
+    <CardList/>
   </div>
-
-
 </template>
 
 <style scoped>
+.container {
+  width: 100%;
+  height: calc(100vh - 128px);
+}
+
 </style>

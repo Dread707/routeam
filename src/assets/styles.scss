@@ -1,4 +1,4 @@
-@import "@/assets/layout/layout";
+@import "@/assets/layout/layout.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -16,6 +16,14 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+
+#app {
+  height: 100vh;
 }
 
 h1 {
