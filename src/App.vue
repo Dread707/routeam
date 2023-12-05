@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import CardList from "@/components/CardList.vue";
+import Dashboard from "@/components/Dashboard.vue";
 </script>
 
 <template>
   <div class="container">
-    <CardList/>
+    <Dashboard/>
   </div>
 </template>
 
 <style scoped>
 .container {
-  width: 100%;
-  height: calc(100vh - 128px);
+  width: calc(100vw - 96px);
+  height: calc(100vh - 96px);
+  padding: 3rem;
 }
 
 </style>

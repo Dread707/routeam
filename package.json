@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@interactjs/interact": "^1.10.24",
     "interactjs": "^1.10.24",
+    "vite-svg-loader": "^4.0.0",
     "vue": "^3.3.8"
   },
   "devDependencies": {
+    "@interactjs/types": "^1.10.24",
     "@types/node": "^20.10.3",
     "@vitejs/plugin-vue": "^4.5.0",
     "sass": "^1.69.5",

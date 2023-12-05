@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import interact from 'interactjs';
-import {onBeforeMount, onMounted} from "vue";
+import {onMounted} from "vue";
 
 const props = defineProps<{
   itemKey: number
+  itemComponent: Object
 }>()
 
 const generateCoordinates = () => {
   const windowWidth = window.innerWidth; // Ширина активного окна
   const windowHeight = window.innerHeight; // Высота активного окна
   const distance = 100;
-  console.log(windowWidth, windowHeight);
   const centerX = windowWidth / 2;
   const centerY = windowHeight / 2;
   const maxX = Math.min(centerX + centerX - distance, windowWidth - distance);
   const maxY = Math.min(centerY + centerY - distance, windowHeight - distance);
   const x = centerX + (Math.random() - 0.5) * (maxX - centerX);
   const y = centerY + (Math.random() - 0.5) * (maxY - centerY);
-  console.log({ x, y });
   return { x, y };
 }
 
@@ -45,26 +44,18 @@ const dragMoveListener = (event: any) => {
 
 interact('.draggable')
     .draggable({
-      // enable inertial throwing
-      inertia: false,
-      // keep the element within the area of it's parent
+      cursorChecker: () => 'grab',
+      inertia: true,
       modifiers: [
         interact.modifiers.restrictRect({
           restriction: 'parent',
           endOnly: true
         })
       ],
-      // enable autoScroll
       autoScroll: false,
 
       listeners: {
-        start (event) {
-          console.log(event.type, event.target)
-        },
-        // call this function on every dragmove event
         move: dragMoveListener,
-
-        // call this function on every dragend event
         end (event) {
           let textEl = event.target.querySelector('p')
 
@@ -84,7 +75,7 @@ window['dragMoveListener'] = dragMoveListener;
 
 <template>
   <div :id="`drag-${itemKey}`" class="draggable" :data-x="defaultCoordinates.x" :data-y="defaultCoordinates.y">
-    <p> You can drag one element </p>
+    <component :is="itemComponent" />
   </div>
 
 </template>
@@ -92,16 +83,22 @@ window['dragMoveListener'] = dragMoveListener;
 <style scoped>
 
 .draggable {
-  width: 40px;
-  min-height: 40px;
-  background-color: #29e;
-  color: white;
-  border-radius: 0.75em;
-  padding: 4%;
+  background: linear-gradient(
+      309deg,
+      rgba(255, 255, 255, 0.1) 30%,
+      rgba(255, 255, 255, 0.4) 90%
+  );
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 1px 24px -1px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
   touch-action: none;
   user-select: none;
   transform: translate(0px, 0px);
   position: absolute;
+  margin: 1rem 0 0 1rem;
+
 }
 
 </style>
