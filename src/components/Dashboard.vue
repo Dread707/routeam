@@ -2,15 +2,66 @@
 import DraggableElement from "@/components/DraggableElement.vue";
 import SketcherElement from "@/components/elements/SketcherElement.vue";
 import SocialMediaElement from "@/components/elements/SocialMediaElement.vue";
+import ButtonElement from "@/components/elements/ButtonElement.vue";
+import WorkElement from "@/components/elements/WorkElement.vue";
 
-const items = [
-  {key: 1, component: SketcherElement},
-  {key: 2, component: SocialMediaElement},
-  {key: 3, component: ''},
-  {key: 4, component: ''},
-  {key: 5, component: ''},
-  // {key: 6, component: ''},
-  // {key: 7, component: ''},
+const draggableElements = [
+  { key: 1, component: SketcherElement , elementStyle: { hideBackground: false }, elementProps: {} },
+  { key: 2, component: SocialMediaElement , elementStyle: { hideBackground: false }, elementProps: {} },
+  {
+    key: 3,
+    component: ButtonElement,
+    elementStyle: {
+      hideBackground: true,
+      containerStyle: "border-radius: 999px;",
+      hoverEffect: false
+    },
+    elementProps: {
+      label: 'Проекты',
+      class: 'btn-large',
+    }
+  },
+  {
+    key: 4,
+    component: ButtonElement,
+    elementStyle: {
+      hideBackground: true,
+      containerStyle: "border-radius: 999px;",
+      hoverEffect: false
+    },
+    elementProps: {
+      label: 'О нас',
+      class: 'btn-large',
+    }
+  },
+  {
+    key: 5,
+    component: ButtonElement,
+    elementStyle: {
+      hideBackground: true,
+
+      containerStyle: "border-radius: 999px;",
+      hoverEffect: false
+    },
+    elementProps: {
+      label: 'Карьера',
+      class: 'btn-small',
+    }
+  },
+  {
+    key: 6,
+    component: ButtonElement,
+    elementStyle: {
+      hideBackground: true,
+      containerStyle: "border-radius: 999px;",
+      hoverEffect: false
+    },
+    elementProps: {
+      label: 'Контакты',
+      class: 'btn-small',
+    }
+  },
+  {key: 7, component: WorkElement},
   // {key: 8, component: ''},
   // {key: 9, component: ''},
   // {key: 10, component: ''},
@@ -20,7 +71,12 @@ const items = [
 </script>
 
 <template>
-  <DraggableElement :itemKey="item.key" :item-component="item.component" v-for="(item) in items" />
+  <DraggableElement
+      v-for="(element) in draggableElements"
+      :element="{key: element.key, component: element.component}"
+      :elementStyle="element.elementStyle"
+      :elementProps="element.elementProps"
+  />
 </template>
 
 <style scoped>

@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import interact from 'interactjs';
 import {onMounted} from "vue";
+import {ElementPropsType} from "@/components/elements/types";
 
 const props = defineProps<{
-  itemKey: number
-  itemComponent: Object
+  element: {
+    key: number,
+    component: Object,
+  },
+  elementStyle: {
+    hideBackground?: boolean,
+    containerStyle?: string,
+    hoverEffect?: boolean,
+
+  },
+  elementProps: ElementPropsType
 }>()
 
 const generateCoordinates = () => {
@@ -17,18 +27,13 @@ const generateCoordinates = () => {
   const maxY = Math.min(centerY + centerY - distance, windowHeight - distance);
   const x = centerX + (Math.random() - 0.5) * (maxX - centerX);
   const y = centerY + (Math.random() - 0.5) * (maxY - centerY);
-  return { x, y };
+  return {x, y};
 }
 
 const defaultCoordinates = generateCoordinates();
 
 onMounted(() => {
-  const target = document.getElementById(`drag-${props.itemKey}`);
-  console.log(target.getBoundingClientRect())
-  //
-  // target.style.top = `${defaultCoordinates.x}px`;
-  // target.style.left = `${defaultCoordinates.y}px`;
-
+  const target = document.getElementById(`drag-${props.element.key}`);
   target.style.transform = 'translate(' + defaultCoordinates.x + 'px, ' + defaultCoordinates.y + 'px)';
 });
 
@@ -53,52 +58,58 @@ interact('.draggable')
         })
       ],
       autoScroll: false,
-
-      listeners: {
-        move: dragMoveListener,
-        end (event) {
-          let textEl = event.target.querySelector('p')
-
-          textEl && (textEl.textContent =
-              'moved a distance of ' +
-              (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-                  Math.pow(event.pageY - event.y0, 2) | 0))
-                  .toFixed(2) + 'px')
-        }
-      }
+      listeners: { move: dragMoveListener }
     })
 
-// this function is used later in the resizing and gesture demos
 window['dragMoveListener'] = dragMoveListener;
 
 </script>
 
 <template>
-  <div :id="`drag-${itemKey}`" class="draggable" :data-x="defaultCoordinates.x" :data-y="defaultCoordinates.y">
-    <component :is="itemComponent" />
+  <div
+      :id="`drag-${element.key}`"
+      :class="{ 'draggable-bg': !elementStyle?.hideBackground }"
+      :data-x="defaultCoordinates.x"
+      :data-y="defaultCoordinates.y"
+      class="draggable"
+  >
+    <div class="element-container" :class="{ 'hover-effect': elementStyle?.hoverEffect }" :style="elementStyle?.containerStyle">
+      <component :is="element.component" :element-props="elementProps" />
+    </div>
   </div>
 
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
-.draggable {
+.draggable-bg {
   background: linear-gradient(
-      309deg,
-      rgba(255, 255, 255, 0.1) 30%,
-      rgba(255, 255, 255, 0.4) 90%
+          309deg,
+          rgba(255, 255, 255, 0.1) 30%,
+          rgba(255, 255, 255, 0.4) 90%
   );
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 1px 24px -1px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+}
+
+.draggable {
   touch-action: none;
   user-select: none;
   transform: translate(0px, 0px);
   position: absolute;
   margin: 1rem 0 0 1rem;
+}
 
+.element-container .hover-effect {
+  border-radius: 20px;
+  transition: 200ms;
+
+  &:hover {
+    box-shadow: 0 1px 24px 10px rgba(0, 0, 0, 0.1);
+  }
 }
 
 </style>
