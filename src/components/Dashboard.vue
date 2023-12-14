@@ -4,6 +4,7 @@ import SketcherElement from "@/components/elements/SketcherElement.vue";
 import SocialMediaElement from "@/components/elements/SocialMediaElement.vue";
 import ButtonElement from "@/components/elements/ButtonElement.vue";
 import WorkElement from "@/components/elements/WorkElement.vue";
+import AboutElement from "@/components/elements/AboutElement.vue";
 
 const draggableElements = [
   { key: 1, component: SketcherElement , elementStyle: { hideBackground: false }, elementProps: {} },
@@ -62,7 +63,7 @@ const draggableElements = [
     }
   },
   {key: 7, component: WorkElement},
-  // {key: 8, component: ''},
+  {key: 8, component: AboutElement},
   // {key: 9, component: ''},
   // {key: 10, component: ''},
   // {key: 11, component: ''},

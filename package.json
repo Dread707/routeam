@@ -12,7 +12,8 @@
     "@interactjs/interact": "^1.10.24",
     "interactjs": "^1.10.24",
     "vite-svg-loader": "^4.0.0",
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@interactjs/types": "^1.10.24",

@@ -1,24 +1,32 @@
 <script setup lang="ts">
 import letsMeetImage from "@/assets/images/letsmeet.png"
+import letsMeetLogoImage from "@/assets/images/letsmeetLogo.png"
 import bubblesImage from "@/assets/images/bubbles.gif"
+import RouteButtonComponent from "@/components/buttons/RouteButtonComponent.vue";
+
 
 </script>
 
 <template>
-<div class="work">
-  <div class="work-header">Наши продукты</div>
-  <div class="work-body">
-    <div class="work-body-text">
-      <h3 class="work-body-heading">Let's meet</h3>
-      <p>Быстрое и удобное решение для Вашего бизнеса, обучения, повседневного общения с друзьями.</p>
+  <div class="work">
+    <div class="work-header">Наши продукты</div>
+    <div class="work-body">
+      <div class="work-body-text">
+        <div class="work-logo">
+          <img :src="letsMeetLogoImage" alt="letsmeet_logo">
+        </div>
+        <p>Быстрое и удобное решение для Вашего бизнеса, обучения, повседневного общения с друзьями.</p>
+      </div>
+      <div class="work-body-image">
+        <img class="letsmeet" :src="letsMeetImage" alt="letsmeet">
+        <img class="bubbles" :src="bubblesImage" alt="bubbles">
+      </div>
+      <div class="work-body-action">
+        <RouteButtonComponent route-name="work" />
+      </div>
     </div>
-    <div class="work-body-image">
-      <img class="letsmeet" :src="letsMeetImage" alt="letsmeet">
-      <img class="bubbles" :src="bubblesImage" alt="bubbles">
-    </div>
-  </div>
 
-</div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -91,6 +99,18 @@ $border-radius-applet: 20px;
 
     }
   }
+
+  &-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    img {
+      width: 240px;
+    }
+  }
+
 }
 
 
